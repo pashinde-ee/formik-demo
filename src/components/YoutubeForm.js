@@ -1,6 +1,7 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
+import TextError from './TextError';
 
 const initialValues = {
     name: "",
@@ -38,7 +39,7 @@ function YouTubeForm() {
                         id="name" 
                         name="name"
                     />
-                    <ErrorMessage name="name" />
+                    <ErrorMessage name="name" component={TextError}/>
                 </div>
                 <div className="form-control">
                     <label htmlFor="email">Email</label>
@@ -47,7 +48,11 @@ function YouTubeForm() {
                         id="email" 
                         name="email"
                     />
-                    <ErrorMessage name="email" />
+                    <ErrorMessage name="email">
+                        {
+                            (errorMsg) => <div className="error">{errorMsg}</div>
+                        }
+                    </ErrorMessage>
                 </div>
                  <div className="form-control">
                     <label htmlFor="channel">Channel</label>
@@ -56,7 +61,7 @@ function YouTubeForm() {
                         id="channel"
                         name="channel"
                     />
-                    <ErrorMessage name="channel" />
+                    <ErrorMessage name="channel" component={TextError}/>
                 </div>
                 <div className="form-control">
                     <label htmlFor="comments">Comments</label>
@@ -77,13 +82,12 @@ function YouTubeForm() {
                                 return (
                                     <div className="form-controle">
                                         <input type="text" id="address" {...field} />
-                                        {meta.touched && meta.error ? <div>{meta.error}</div> : null}
+                                        {meta.touched && meta.error ? <div className="error">{meta.error}</div> : null}
                                     </div>
                                 )
                             }
                         }
                     </Field>
-                    <ErrorMessage name="comments" />
                 </div>
                 <button type="submit">Submit</button>
             </Form>
