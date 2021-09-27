@@ -12,7 +12,8 @@ const initialValues = {
     social: {
         facebook: "",
         twitter: ""
-    }
+    },
+    phoneNumbers: ['', '']
 };
 
 const onSubmit = values => {
@@ -100,6 +101,15 @@ function YouTubeForm() {
                 <div className="form-control">
                     <label htmlFor="twitter">Twitter profile</label>
                     <Field type="text" id="twitter" name="social.facebtwitterok" />
+                </div>
+
+                <div className="form-control">
+                    <label htmlFor="primaryPh">Primary Phone Number</label>
+                    <Field type="text" id="primaryPh" name="phoneNumbers[0]" />
+                </div>
+                <div className="form-control">
+                    <label htmlFor="secondaryPh">Secondary Phone Number</label>
+                    <Field type="text" id="secondaryPh" name="phoneNumbers[1]" />
                 </div>
                 <button type="submit">Submit</button>
             </Form>
