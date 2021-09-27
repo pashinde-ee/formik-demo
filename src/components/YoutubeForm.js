@@ -28,7 +28,16 @@ const validationSchema = Yup.object({
     .required('Email field is required'),
     channel: Yup.string().required('Channel field is required'),
     address:Yup.string().required('Address is required')
-})
+});
+
+const validateComments = value => {
+    let error;
+    if (!value) {
+        error = 'Comments is required';
+    }
+
+    return error;
+};
 
 function YouTubeForm() {
     return (
@@ -76,8 +85,9 @@ function YouTubeForm() {
                         type="text"
                         id="comments"
                         name="comments"
+                        validate={validateComments}
                     />
-                    <ErrorMessage name="comments" />
+                    <ErrorMessage name="comments" component={TextError}/>
                 </div>
                 <div className="form-control">
                     <label htmlFor="address">Address</label>
