@@ -5,7 +5,9 @@ import * as Yup from 'yup';
 const initialValues = {
     name: "",
     email: "",
-    channel: ""
+    channel: "",
+    comments: "",
+    address: ""
 };
 
 const onSubmit = values => {
@@ -17,7 +19,8 @@ const validationSchema = Yup.object({
     email: Yup.string()
     .email('Invalid email')
     .required('Email field is required'),
-    channel: Yup.string().required('Channel field is required')
+    channel: Yup.string().required('Channel field is required'),
+    address:Yup.string().required('Address is required')
 })
 
 function YouTubeForm() {
@@ -54,6 +57,33 @@ function YouTubeForm() {
                         name="channel"
                     />
                     <ErrorMessage name="channel" />
+                </div>
+                <div className="form-control">
+                    <label htmlFor="comments">Comments</label>
+                    <Field
+                        as="textarea"
+                        type="text"
+                        id="comments"
+                        name="comments"
+                    />
+                    <ErrorMessage name="comments" />
+                </div>
+                <div className="form-control">
+                    <label htmlFor="address">Address</label>
+                    <Field name="address">
+                        {
+                            (props) => {
+                                const {field,form,meta} = props;
+                                return (
+                                    <div className="form-controle">
+                                        <input type="text" id="address" {...field} />
+                                        {meta.touched && meta.error ? <div>{meta.error}</div> : null}
+                                    </div>
+                                )
+                            }
+                        }
+                    </Field>
+                    <ErrorMessage name="comments" />
                 </div>
                 <button type="submit">Submit</button>
             </Form>
