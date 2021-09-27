@@ -46,107 +46,121 @@ function YouTubeForm() {
             validationSchema={validationSchema}
             onSubmit={onSubmit}
         >
-            <Form>
-                <div className="form-control">
-                    <label htmlFor="name">Name</label>
-                    <Field 
-                        type="text" 
-                        id="name" 
-                        name="name"
-                    />
-                    <ErrorMessage name="name" component={TextError}/>
-                </div>
-                <div className="form-control">
-                    <label htmlFor="email">Email</label>
-                    <Field 
-                        type="email"
-                        id="email" 
-                        name="email"
-                    />
-                    <ErrorMessage name="email">
-                        {
-                            (errorMsg) => <div className="error">{errorMsg}</div>
-                        }
-                    </ErrorMessage>
-                </div>
-                 <div className="form-control">
-                    <label htmlFor="channel">Channel</label>
-                    <Field 
-                        type="text"
-                        id="channel"
-                        name="channel"
-                    />
-                    <ErrorMessage name="channel" component={TextError}/>
-                </div>
-                <div className="form-control">
-                    <label htmlFor="comments">Comments</label>
-                    <Field
-                        as="textarea"
-                        type="text"
-                        id="comments"
-                        name="comments"
-                        validate={validateComments}
-                    />
-                    <ErrorMessage name="comments" component={TextError}/>
-                </div>
-                <div className="form-control">
-                    <label htmlFor="address">Address</label>
-                    <FastField name="address">
-                        {
-                            (props) => {
-                                const {field,form,meta} = props;
-                                return (
-                                    <div className="form-controle">
-                                        <input type="text" id="address" {...field} />
-                                        {meta.touched && meta.error ? <div className="error">{meta.error}</div> : null}
-                                    </div>
-                                )
-                            }
-                        }
-                    </FastField>
-                </div>
-                <div className="form-control">
-                    <label htmlFor="facebook">Facebook profile</label>
-                    <Field type="text" id="facebook" name="social.facebook" />
-                </div>
-                <div className="form-control">
-                    <label htmlFor="twitter">Twitter profile</label>
-                    <Field type="text" id="twitter" name="social.facebtwitterok" />
-                </div>
+            {
+                formik => {
+                    return (
+                        <Form>
+                            <div className="form-control">
+                                <label htmlFor="name">Name</label>
+                                <Field 
+                                    type="text" 
+                                    id="name" 
+                                    name="name"
+                                />
+                                <ErrorMessage name="name" component={TextError}/>
+                            </div>
+                            <div className="form-control">
+                                <label htmlFor="email">Email</label>
+                                <Field 
+                                    type="email"
+                                    id="email" 
+                                    name="email"
+                                />
+                                <ErrorMessage name="email">
+                                    {
+                                        (errorMsg) => <div className="error">{errorMsg}</div>
+                                    }
+                                </ErrorMessage>
+                            </div>
+                            <div className="form-control">
+                                <label htmlFor="channel">Channel</label>
+                                <Field 
+                                    type="text"
+                                    id="channel"
+                                    name="channel"
+                                />
+                                <ErrorMessage name="channel" component={TextError}/>
+                            </div>
+                            <div className="form-control">
+                                <label htmlFor="comments">Comments</label>
+                                <Field
+                                    as="textarea"
+                                    type="text"
+                                    id="comments"
+                                    name="comments"
+                                    validate={validateComments}
+                                />
+                                <ErrorMessage name="comments" component={TextError}/>
+                            </div>
+                            <div className="form-control">
+                                <label htmlFor="address">Address</label>
+                                <FastField name="address">
+                                    {
+                                        (props) => {
+                                            const {field,form,meta} = props;
+                                            return (
+                                                <div className="form-controle">
+                                                    <input type="text" id="address" {...field} />
+                                                    {meta.touched && meta.error ? <div className="error">{meta.error}</div> : null}
+                                                </div>
+                                            )
+                                        }
+                                    }
+                                </FastField>
+                            </div>
+                            <div className="form-control">
+                                <label htmlFor="facebook">Facebook profile</label>
+                                <Field type="text" id="facebook" name="social.facebook" />
+                            </div>
+                            <div className="form-control">
+                                <label htmlFor="twitter">Twitter profile</label>
+                                <Field type="text" id="twitter" name="social.facebtwitterok" />
+                            </div>
 
-                <div className="form-control">
-                    <label htmlFor="primaryPh">Primary Phone Number</label>
-                    <Field type="text" id="primaryPh" name="phoneNumbers[0]" />
-                </div>
-                <div className="form-control">
-                    <label htmlFor="secondaryPh">Secondary Phone Number</label>
-                    <Field type="text" id="secondaryPh" name="phoneNumbers[1]" />
-                </div>
+                            <div className="form-control">
+                                <label htmlFor="primaryPh">Primary Phone Number</label>
+                                <Field type="text" id="primaryPh" name="phoneNumbers[0]" />
+                            </div>
+                            <div className="form-control">
+                                <label htmlFor="secondaryPh">Secondary Phone Number</label>
+                                <Field type="text" id="secondaryPh" name="phoneNumbers[1]" />
+                            </div>
 
-                <div className="form-control">
-                    <label>List of Phone Numbers</label>
-                    <FieldArray name="phNumbers">
-                        {
-                            fieldArrayProps => {
-                                const {push, remove, form} = fieldArrayProps;
-                                const {values} = form;
-                                const {phNumbers} = values;
+                            <div className="form-control">
+                                <label>List of Phone Numbers</label>
+                                <FieldArray name="phNumbers">
+                                    {
+                                        fieldArrayProps => {
+                                            const {push, remove, form} = fieldArrayProps;
+                                            const {values} = form;
+                                            const {phNumbers} = values;
 
-                                return <div>
-                                        {phNumbers.map((phNumber, index) => (
-                                            <div key={index}>
-                                                <Field name={`phNumbers[${index}]`} />
-                                                <button type="button" onClick={() => push('')}>{' ' }+{' ' }</button>
-                                                { index > 0 && <button type="button" onClick={() => remove(index)}>{' ' }-{' ' }</button>}
-                                            </div>
-                                        ))}
-                                    </div>
-                            }
-                        }
-                    </FieldArray>
-                </div>
-                <button type="submit">Submit</button>
-            </Form>
+                                            return <div>
+                                                    {phNumbers.map((phNumber, index) => (
+                                                        <div key={index}>
+                                                            <Field name={`phNumbers[${index}]`} />
+                                                            <button type="button" onClick={() => push('')}>{' ' }+{' ' }</button>
+                                                            { index > 0 && <button type="button" onClick={() => remove(index)}>{' ' }-{' ' }</button>}
+                                                        </div>
+                                                    ))}
+                                                </div>
+                                        }
+                                    }
+                                </FieldArray>
+                            </div>
+                            <button type="button" onClick={() => formik.validateField('comments')}>Validate Comments</button>
+                            <button type="button" onClick={() => formik.validateForm()}>Validate All</button>
+                            <button type="button" onClick={() => formik.setFieldTouched('comments')}>Visit  Comments</button>
+                            <button type="button" onClick={() => formik.setTouched({
+                                name: true,
+                                channel: true,
+                                comments: true
+                            })}>Visit Fields</button>
+                            <button type="submit">Submit</button>
+                        </Form>
+                    );
+                }
+            }
         </Formik>
     );
 }
