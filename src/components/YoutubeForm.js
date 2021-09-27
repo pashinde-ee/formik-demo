@@ -38,7 +38,7 @@ function YouTubeForm() {
         validate
     });
 
-    console.log(formik.errors)
+    console.log(formik.touched)
 
     return (
         <div>
@@ -51,6 +51,7 @@ function YouTubeForm() {
                         name="name"
                         value={formik.values.name}
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                     />
                     {formik.errors.name ? <div className="error">{formik.errors.name}</div> : null }
                 </div>
@@ -62,6 +63,7 @@ function YouTubeForm() {
                         name="email" 
                         value={formik.values.email} 
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                     />
                     {formik.errors.email ? <div className="error">{formik.errors.email}</div> : null }
                 </div>
@@ -73,6 +75,7 @@ function YouTubeForm() {
                         name="channel"
                         value={formik.values.channel}
                         onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
                     />
                     {formik.errors.channel ? <div className="error">{formik.errors.channel}</div> : null }
                 </div>
